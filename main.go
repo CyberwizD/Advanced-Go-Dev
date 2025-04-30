@@ -5,6 +5,9 @@ import (
 )
 
 func main() {
-	// Concurrency
+	// Basic Concurrency
 	concurrency.Basic_Concurrency()
+
+	// Using the `Select` Statement in Concurrency
+	concurrency.SelectCase_Concurrency()
 }
