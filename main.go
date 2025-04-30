@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/CyberwizD/Advanced-Go-Dev/concurrency"
-	faninfanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_fan-out-pattern"
+	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 )
 
 func main() {
@@ -13,5 +13,5 @@ func main() {
 	concurrency.SelectCase_Concurrency()
 
 	// Fan In and Fan Out Concurrency Pattern
-	faninfanoutpattern.FanIn()
+	faninpattern.FanIn()
 }
