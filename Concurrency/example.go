@@ -66,6 +66,8 @@ func SelectCase_Concurrency() {
 			time.Sleep(1 * time.Second) // Simulate some delay in sending
 			fmt.Println("Post Sent.✅")
 		}
+
+		close(ch)
 	}()
 
 	for i := 0; i < len(posts); i++ {
