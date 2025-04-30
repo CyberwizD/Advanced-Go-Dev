@@ -46,3 +46,37 @@ func Basic_Concurrency() {
 
 	fmt.Println("Extitng concurrent program...")
 }
+
+func SelectCase_Concurrency() {
+	// Make a channel with type `string` and size `10`
+	ch := make(chan string, 5)
+
+	// Slice of strings
+	posts := []string{
+		"Why Go is the best programming language",
+		"How to use Go for backend development",
+		"Concurrency in Go: A deep dive",
+	}
+
+	// Run an anonymous function in a goroutine
+	go func() {
+		for _, post := range posts {
+			fmt.Println("\nSending post -", post)
+			ch <- post
+			time.Sleep(1 * time.Second) // Simulate some delay in sending
+			fmt.Println("Post Sent.✅")
+		}
+	}()
+
+	for i := 0; i < len(posts); i++ {
+		select {
+		case post1 := <-ch:
+			fmt.Println("Received post:", post1)
+		case <-time.After(2 * time.Second):
+			fmt.Println("Timeout! No posts received.")
+			return
+		}
+	}
+
+	fmt.Println("Extitng concurrent program...")
+}
