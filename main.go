@@ -4,6 +4,7 @@ import (
 	"github.com/CyberwizD/Advanced-Go-Dev/concurrency"
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
+	"github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup"
 )
 
 func main() {
@@ -18,4 +19,7 @@ func main() {
 
 	// Fan Out Concurrency Pattern
 	fanoutpattern.FanOut()
+
+	// Using the `errgroup` Package for Concurrency
+	errgroup.ErrGroup()
 }
