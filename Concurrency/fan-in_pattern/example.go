@@ -13,13 +13,13 @@ import (
 )
 
 func FanIn() {
-	ch1, err := read("C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv")
+	ch1, err := read("./assets/file1.csv")
 
 	if err != nil {
 		panic(fmt.Errorf("error reading csv file: %v", err))
 	}
 
-	ch2, err := read("C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file2.csv")
+	ch2, err := read("./assets/file2.csv")
 
 	if err != nil {
 		panic(fmt.Errorf("error reading csv file: %v", err))
