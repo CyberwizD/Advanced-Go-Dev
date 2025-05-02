@@ -23,7 +23,8 @@ func Pipeline() {
 		log.Fatalf("Error reading csv %v", err)
 	}
 
-	for val := range sanitize(titleize(records)) { // `titleize()` is taking the first character of each one of the values in each column of each line and capitalizing it
+	// `titleize()` is taking the first character of each one of the values in each column of each line and capitalizing it
+	for val := range sanitize(titleize(records)) { // The order can be swapped
 		fmt.Printf("%v\n", val)
 	}
 
