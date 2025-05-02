@@ -5,6 +5,7 @@ import (
 	errgroup "github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup"
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
+	pipeline "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pipeline_pattern"
 )
 
 func main() {
@@ -22,4 +23,7 @@ func main() {
 
 	// Using the `errgroup` Package for Concurrency
 	errgroup.ErrGroup()
+
+	// Pipeline Concurrency Pattern
+	pipeline.Pipeline()
 }
