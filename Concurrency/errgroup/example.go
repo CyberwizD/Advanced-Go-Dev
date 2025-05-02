@@ -6,6 +6,7 @@ package errgroup
 // It works for a group of goroutines working on a common task.
 
 import (
+	"context"
 	"encoding/csv"
 	"errors"
 	"fmt"
@@ -17,13 +18,25 @@ import (
 )
 
 func ErrGroup() {
+	ctx := context.Background()
+
 	// The errgroup package is useful for managing a group of goroutines
 	// and handling errors in a clean and efficient way.
-	syncWaitGroup := waitGroups() // Using the `sync` standard library
-	errWaitGroup := errGroup()    // Using the `errgroup` package
 
+	syncWaitGroup := waitGroups() // Using the `sync` standard library
+
+	errWaitGroup := errGroup() // Using the `errgroup` package
+
+	contextWaitGroup := contextWitherrGroup(ctx) // Using the `context` standard library with the `errgroup` package
+
+	fmt.Println("Using the `sync` standard library")
 	<-syncWaitGroup
+
+	fmt.Println("Using the `errgroup` package")
 	<-errWaitGroup
+
+	fmt.Println("Using the `context` standard library with the `errgroup` package")
+	<-contextWaitGroup
 
 	fmt.Println("All goroutines finished")
 }
@@ -115,7 +128,48 @@ func errGroup() <-chan struct{} {
 			}
 
 			return nil
-		}) // `g.Go(func() error)` - When any of the goroutines returns an error (not nil), the `errgroup` will cancel all other goroutines.
+		}) // `g.Go(func() error)` - When any of the goroutines returns an error (non-nil), the `errgroup` will cancel all other goroutines.
+	}
+
+	go func() {
+		if err := g.Wait(); err != nil {
+			fmt.Printf("Error reading file: %v", err)
+		}
+
+		close(ch) // Close the channel when done
+	}()
+
+	return ch
+}
+
+func contextWitherrGroup(ctx context.Context) <-chan struct{} {
+	ch := make(chan struct{}, 1)
+
+	g, ctx := errgroup.WithContext(ctx) // Create a new `errgroup` with a context
+
+	for _, file := range []string{"C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv", "C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file2.csv"} {
+		file := file
+
+		g.Go(func() error {
+			ch, err := read(file)
+
+			if err != nil {
+				return fmt.Errorf("error reading %v", err)
+			}
+
+			for {
+				select {
+				case <-ctx.Done(): // Check if the context is done
+					return ctx.Err()
+				case line, ok := <-ch:
+					if !ok {
+						return nil // Channel closed
+					}
+
+					fmt.Println(line)
+				}
+			}
+		})
 	}
 
 	go func() {
