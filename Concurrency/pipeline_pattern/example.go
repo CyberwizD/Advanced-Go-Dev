@@ -6,22 +6,28 @@ package pipeline
 
 import (
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 func Pipeline() {
-	records, err := read("./assets/file1.csv")
+	fmt.Println("Starting pipeline process...")
+
+	records, err := read("./assets/file3.csv")
 
 	if err != nil {
 		log.Fatalf("Error reading csv %v", err)
 	}
 
-	for val := range sanitize(titleize(records)) {
+	for val := range sanitize(titleize(records)) { // `titleize()` is taking the first character of each one of the values in each column of each line and capitalizing it
 		fmt.Printf("%v\n", val)
 	}
+
+	fmt.Println("Pipeline completed")
 }
 
 func read(file string) (<-chan []string, error) {
@@ -34,21 +40,18 @@ func read(file string) (<-chan []string, error) {
 		return nil, fmt.Errorf("error opening file: %v", err)
 	}
 
-	// Create a new CSV reader
-	csvReader := csv.NewReader(f)
-
 	// Read the CSV file in a goroutine
 	go func() {
-		defer close(ch) // Close the channel when done
+		// Create a new CSV reader
+		csvReader := csv.NewReader(f)
+		csvReader.FieldsPerRecord = 3 // Allow variable number of fields per record
 
 		for {
 			// Read a record from the CSV file
 			record, err := csvReader.Read()
 
-			if err == io.EOF {
-				break // End of file reached
-			} else if err != nil {
-				fmt.Println("Error reading CSV:", err)
+			if errors.Is(err, io.EOF) {
+				close(ch) // Close the channel when done
 				return
 			}
 
@@ -59,4 +62,40 @@ func read(file string) (<-chan []string, error) {
 	return ch, nil
 }
 
-func sanitize()
+// sanitize takes a channel of strings and returns a channel of sanitized strings.
+// It removes leading and trailing whitespace from each string in the slice.
+func sanitize(strC <-chan []string) <-chan []string {
+	ch := make(chan []string)
+
+	go func() {
+		for str := range strC {
+			// Copy the slice to avoid modifying the original slice
+			copy(str, str)
+			ch <- str
+		}
+
+		close(ch)
+	}()
+
+	return ch
+}
+
+// titleize capitalizes the first letter of each string in the slice
+// and returns a channel of the modified strings.
+func titleize(strC <-chan []string) <-chan []string {
+	ch := make(chan []string)
+
+	go func() {
+		// Iterate over the strings in the channel
+		for str := range strC {
+			for i, s := range str {
+				// Capitalize the first letter of each string in the slice
+				str[i] = strings.Title(s)
+			}
+			ch <- str
+		}
+		close(ch)
+	}()
+
+	return ch
+}
