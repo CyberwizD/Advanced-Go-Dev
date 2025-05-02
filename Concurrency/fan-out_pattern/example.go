@@ -19,6 +19,7 @@ func FanOut() {
 		panic(fmt.Errorf("error reading csv file: %v", err))
 	}
 
+	fmt.Println("Splitting channels...")
 	// Split the channel into multi channels
 	chan1 := writeToChannel("1", ch1)
 	chan2 := writeToChannel("2", ch1)
