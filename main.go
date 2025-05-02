@@ -1,18 +1,18 @@
 package main
 
 import (
-	"github.com/CyberwizD/Advanced-Go-Dev/concurrency"
+	basic "github.com/CyberwizD/Advanced-Go-Dev/concurrency/basic"
+	errgroup "github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup"
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
-	"github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup"
 )
 
 func main() {
 	// Basic Concurrency
-	concurrency.Basic_Concurrency()
+	basic.Basic_Concurrency()
 
 	// Using the `Select` Statement in Concurrency
-	concurrency.SelectCase_Concurrency()
+	basic.SelectCase_Concurrency()
 
 	// Fan In Concurrency Pattern
 	faninpattern.FanIn()
