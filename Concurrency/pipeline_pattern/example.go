@@ -69,8 +69,13 @@ func sanitize(strC <-chan []string) <-chan []string {
 
 	go func() {
 		for str := range strC {
+			if len(str[0]) > 5 {
+				continue // Skip if the slice has more than 5 elements in the first column
+			}
+
 			// Copy the slice to avoid modifying the original slice
 			copy(str, str)
+
 			ch <- str
 		}
 
