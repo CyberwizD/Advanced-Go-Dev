@@ -2,7 +2,7 @@ package main
 
 import (
 	basic "github.com/CyberwizD/Advanced-Go-Dev/concurrency/basic"
-	errgroup "github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup"
+	errgroup "github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup_package"
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
 	pipeline "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pipeline_pattern"
