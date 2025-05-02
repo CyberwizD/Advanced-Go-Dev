@@ -28,6 +28,7 @@ func FanIn() {
 	// Create a channel to gracefully shutdown the channels
 	exit := make(chan struct{})
 
+	fmt.Println("Merging channels...")
 	// Merge the two channels into one
 	chM := mergedChannel(ch1, ch2)
 
