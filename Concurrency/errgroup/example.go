@@ -13,12 +13,16 @@ import (
 	"io"
 	"os"
 	"sync"
+	"time"
 
 	"golang.org/x/sync/errgroup"
 )
 
 func ErrGroup() {
 	ctx := context.Background()
+
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second) // Create a context with a timeout of 5 seconds
+	defer cancel()                                         // Cancel the context when done
 
 	// The errgroup package is useful for managing a group of goroutines
 	// and handling errors in a clean and efficient way.
@@ -53,6 +57,8 @@ func read(file string) (<-chan []string, error) {
 
 	// Create a new CSV reader
 	csvReader := csv.NewReader(f)
+
+	time.Sleep(time.Millisecond) // Simulate some delay
 
 	// Read the CSV file in a goroutine
 	go func() {
@@ -160,6 +166,8 @@ func contextWitherrGroup(ctx context.Context) <-chan struct{} {
 			for {
 				select {
 				case <-ctx.Done(): // Check if the context is done
+					fmt.Printf("Comtext completed %v\n", ctx.Err())
+
 					return ctx.Err()
 				case line, ok := <-ch:
 					if !ok {
