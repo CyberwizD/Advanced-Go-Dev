@@ -86,7 +86,7 @@ func waitGroups() <-chan struct{} {
 
 	var wg sync.WaitGroup
 
-	for _, file := range []string{"C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv", "C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv"} {
+	for _, file := range []string{"./assets/file1.csv", "./assets/file2.csv"} {
 		file := file
 
 		wg.Add(1)
@@ -119,7 +119,7 @@ func errGroup() <-chan struct{} {
 
 	var g errgroup.Group
 
-	for _, file := range []string{"C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv", "C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file2.csv"} {
+	for _, file := range []string{"./assets/file1.csv", "./assets/file2.csv"} {
 		file := file
 
 		g.Go(func() error {
@@ -153,7 +153,7 @@ func contextWitherrGroup(ctx context.Context) <-chan struct{} {
 
 	g, ctx := errgroup.WithContext(ctx) // Create a new `errgroup` with a context
 
-	for _, file := range []string{"C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file1.csv", "C:/Users/WISDOM/Documents/Python Codes/GoLang/Advanced Go Dev/concurrency/file2.csv"} {
+	for _, file := range []string{"./assets/file1.csv", "./assets/file2.csv"} {
 		file := file
 
 		g.Go(func() error {
