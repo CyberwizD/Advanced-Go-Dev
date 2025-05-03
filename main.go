@@ -7,6 +7,7 @@ import (
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
 	pipeline "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pipeline_pattern"
+	pubsubpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pub-sub_pattern"
 )
 
 func main() {
@@ -30,4 +31,7 @@ func main() {
 
 	// Background Job Concurrency Pattern
 	backgroundjob.BackgroundJob()
+
+	// Publisher Subscriber Concurrency Pattern
+	pubsubpattern.PubSub()
 }
