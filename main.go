@@ -1,6 +1,7 @@
 package main
 
 import (
+	backgroundjob "github.com/CyberwizD/Advanced-Go-Dev/concurrency/background_job"
 	basic "github.com/CyberwizD/Advanced-Go-Dev/concurrency/basic"
 	errgroup "github.com/CyberwizD/Advanced-Go-Dev/concurrency/errgroup_package"
 	faninpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-in_pattern"
@@ -26,4 +27,7 @@ func main() {
 
 	// Pipeline Concurrency Pattern
 	pipeline.Pipeline()
+
+	// Background Job Concurrency Pattern
+	backgroundjob.BackgroundJob()
 }
