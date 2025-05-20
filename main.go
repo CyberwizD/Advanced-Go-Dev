@@ -8,6 +8,7 @@ import (
 	fanoutpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/fan-out_pattern"
 	pipeline "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pipeline_pattern"
 	pubsubpattern "github.com/CyberwizD/Advanced-Go-Dev/concurrency/pub-sub_pattern"
+	ratelimit "github.com/CyberwizD/Advanced-Go-Dev/rate-limit"
 )
 
 func main() {
@@ -34,4 +35,7 @@ func main() {
 
 	// Publisher Subscriber Concurrency Pattern
 	pubsubpattern.PubSub()
+
+	// Rate Limiting in Go
+	ratelimit.RateLimiter()
 }
